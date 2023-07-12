@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <a href="#home" id="navbar__logo"><img src = "LTSTFlogo-02.png" alt = "company logo"></a>
+            <div class="navbar__toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+            <ul class="navbar__menu">
+                <li class="navbar__item">
+                    <a href="#home" class="navbar__links" id="home-page">Home</a>
+                </li>
+                <li class="navbar__item">
+                    <a href="#about" class="navbar__links" id="about-page">About</a>
+                </li>
+                <li class="navbar__item">
+                    <a href="#features" class="navbar__links" id="features-page">Features</a>
+                </li>
+                <li class="navbar__btn">
+                    <a href="#sign-up" class="button" id="signup">Sign Up</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="hero" id="home">
+        <div class="hero__container">
+            <h1 class="hero__heading">Hello ___ , your report<span> is Ready</span></h1>
+            <p class="hero__description">360-Degree Feedback, for Greater Performance</p>
+            <button class="main__btn"><a href="#">Generate Summary</a></button>
+        </div>
+    </div>
+
+    <!-- About Section -->
+    <div class="main" id="about">
+        <div class="main__container">
+            <div class="main__canvas">
+                <canvas id="ratingCanvas" width="400" height="450"></canvas>
+            </div>
+            <div class="main__content">
+                <h1>How does our AI model work?</h1>
+                <h2>We recognize the time-consuming effort to review feedback. Our AI model streamlines this process by aggregating comments from your employer, peers, and self-evaluations to generate a concise, comprehensive summary. It highlights your unique strengths and pinpoints areas for development, empowering you to foster professional growth.</h2>
+                <p>Need help with something?</p>
+                <button class="main__btn"><a href="#">Contact us</a></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- App Features Section -->
+    <div class="features" id="features">
+        <h1>Assessment Features</h1>
+        <div class="features__wrapper">
+            <div class="features__card">
+                <h2>Team Members</h2>
+                <p>Contains feedback from your team members</p>
+                <div class="features__btn"><button>See Result</button></div>
+            </div>
+            <div class="features__card">
+                <h2>Peer Members</h2>
+                <p>Contains feedback from your peers</p>
+                <div class="features__btn"><button>See Result</button></div>
+            </div>
+            <div class="features__card">
+                <h2>Manager</h2>
+                <p>Contains feedback from your manager</p>
+                <div class="features__btn"><button>See Result</button></div>
+            </div>
+            <div class="features__card">
+                <h2>Self</h2>
+                <p>Contains feedback from yourself</p>
+                <div class="features__btn"><button>See Result</button></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Feature Section -->>
+    <div class="main1" id="sign-up">
+        <div class="main1__container">
+            <div class="main1__content">
+                <h1>See My Evaluations</h1>
+                <h2>Sign Up Now</h2>
+                <button class="main__btn"><a href="#">Sign Up</a></button>
+            </div>
+            <div class="main__img--container">
+                <div class="main__img--card" id="card-2"><i class="fas fa-users"></i></class>
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Section-->>
+    <div class="footer__container">
+        <div class="footer__links">
+            <div class="footer__links--wrapper">
+                <div class="footer__link--items">
+                    <h2>About Us</h2>
+                    <a href="/sign-up">How it works</a>
+                    <a href="/">Careers</a>
+                </div>
+                <div class="footer__link--items">
+                    <h2>Contact Us</h2>
+                    <a href="/">Phone</a>
+                    <a href="/">Email</a>
+                </div>
+                <div class="footer__link--items">
+                    <h2>Social Links</h2>
+                    <a href="/">Facebook</a>
+                    <a href="/">Instagram</a>
+                    <a href="/">Twitter</a>
+                </div>
+                
+                <div class="footer__link--items">
+                    <h2>Legal</h2>
+                    <a href="/">Privacy Policy</a>
+                    <a href="/">Terms & Conditions</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
