@@ -83,7 +83,7 @@ app.post('/api/getUser', async (req, res) => {
       res.json(rows[0]);
     } else {
       // If no users found, send error response
-      res.status(404).json({ message: 'User not found.' });
+      res.status(404).json({ message: 'User Not Found.' });
     }
   } catch (err) {
     // Send server error response
@@ -100,3 +100,4 @@ app.listen(3000, () => {
 menuLinks.addEventListener('click', hideMobileMenu);
 navLogo.addEventListener('click', hideMobileMenu);
 
+trollolol :)
