@@ -99,3 +99,6 @@ app.listen(3000, () => {
 
 menuLinks.addEventListener('click', hideMobileMenu);
 navLogo.addEventListener('click', hideMobileMenu);
+
+
+Does it work on Azure?
