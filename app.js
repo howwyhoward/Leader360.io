@@ -50,5 +50,53 @@ const hideMobileMenu = () => {
     } 
 }
 
+const express = require('express');
+const mysql = require('mysql2/promise');
+const bodyParser = require('body-parser');
+
+const app = express();
+app.use(bodyParser.json());
+
+// Connection pool for MySQL
+const pool = mysql.createPool({
+  host: 'your_host',
+  user: 'your_user',
+  password: 'your_password',
+  database: 'your_database',
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0
+});
+
+app.post('/api/getUser', async (req, res) => {
+  const { email } = req.body;
+  
+  // SQL query with placeholder
+  const sqlQuery = 'SELECT name FROM users WHERE email = ?';
+
+  try {
+    // Use connection from pool to execute query
+    const [rows, fields] = await pool.execute(sqlQuery, [email]);
+    
+    if (rows.length > 0) {
+      // Send first match as response
+      res.json(rows[0]);
+    } else {
+      // If no users found, send error response
+      res.status(404).json({ message: 'User not found.' });
+    }
+  } catch (err) {
+    // Send server error response
+    res.status(500).json({ message: 'Server error.' });
+    console.error(err);
+  }
+});
+
+app.listen(3000, () => {
+  console.log('Server is running on port 3000');
+});
+
+
 menuLinks.addEventListener('click', hideMobileMenu);
 navLogo.addEventListener('click', hideMobileMenu);
+
