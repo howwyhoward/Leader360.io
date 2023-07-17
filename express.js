@@ -14,10 +14,6 @@ const connection = mysql.createConnection({
   password : 'R3dD#ad24398L',
   database : 'leadershipmysqldb',
   port     : '3306',
-  ssl: {
-    rejectUnauthorized: true,
-    ca: serverCa
-  }
 });
 
 // Connect to MySQL
