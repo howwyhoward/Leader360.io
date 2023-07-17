@@ -60,7 +60,7 @@ const connection = mysql.createConnection({
   host     : 'leadershipmysql.mysql.database.azure.com',
   user     : 'leadershipmysqladmin',
   password : 'R3dD#ad24398L',
-  database : 'leadershipmysql ',
+  database : 'leadershipmysqldb',
   ssl  : {
     ca : fs.readFileSync('DigiCertGlobalRootG2.crt.pem')
   }
