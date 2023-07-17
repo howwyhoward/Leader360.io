@@ -3,58 +3,26 @@ const menuLinks = document.querySelector('.navbar__menu');
 const navLogo = document.querySelector('#navbar__logo');
 
 
-const mysql = require('mysql');
 
-const connection = mysql.createConnection({
-  host     : 'leadershipmysql.mysql.database.azure.com',
-  user     : 'leadershipmysqladmin',
-  password : 'R3dD#ad24398L',
-  database : 'leadershipmysqldb',
-  ssl  : {
-    ca : fs.readFileSync('DigiCertGlobalRootG2.crt.pem')
-  }
+
+/*document.getElementById('submit-button').addEventListener('click', function() {
+  const email = document.getElementById('email-input').value;
+
+  connection.query('SELECT UserFname FROM tblUSER WHERE UserEmail = ?', [email], function(error, results, fields) {
+      if (error) throw error;
+
+      if (results.length > 0) {
+        document.getElementById('username').textContent = 'User Name: ' + results[0].UserFname;
+      } else {
+        document.getElementById('username').textContent = 'No user found with the provided email';
+      }
+  });
 });
 
-connection.connect((error) => {
-  if (error) {
-    console.error('Error connecting: ' + error.stack);
-    return;
-  }
-  
-  console.log('Connected as id ' + connection.threadId);
-});
+*/
 
-let createTableQuery = `
-  CREATE TABLE tblUSER (
-    UserID INT AUTO_INCREMENT PRIMARY KEY,
-    UserFname VARCHAR(30) NOT NULL,
-    UserLname VARCHAR(30) NOT NULL,
-    UserEmail VARCHAR(50) NOT NULL,
-    UserPhoneNumber VARCHAR(20) NOT NULL
-  )
-`;
 
-connection.query(createTableQuery, function (error, results, fields) {
-  if (error) throw error;
-  console.log('Table "tblUSER" has been created');
-});
 
-let users = [
-  ['Arnav', 'Khare', 'arney.chillarney@gmail.com', '4252367685'],
-  ['Ali', 'Chawro', 'achawro9@gmail.com', '4254481587'],
-  ['Howard', 'Wang', 'howardw1120@gmail.com', '4253517712'],
-  ['Santosh', 'Khare', 'santosh@golsinc.com', '4254926980'],
-  ['Atul', 'Khare', 'akhare@gmail.com', '4254436066'],
-];
-
-let insertQuery = 'INSERT INTO tblUSER (UserFname, UserLname, UserEmail, UserPhoneNumber) VALUES ?';
-
-connection.query(insertQuery, [users], function (error, results, fields) {
-  if (error) throw error;
-  console.log('Inserted ' + results.affectedRows + ' rows');
-});
-
-connection.end();
 
 
 const mobileMenu = () => {
@@ -104,13 +72,6 @@ const hideMobileMenu = () => {
         menuLinks.classList.remove('active')
     } 
 }
-
-
-
-
-
-
-
 
 
 menuLinks.addEventListener('click', hideMobileMenu);
