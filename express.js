@@ -16,7 +16,7 @@ const connection = mysql.createConnection({
   port     : '3306',
   ssl: {
     rejectUnauthorized: true,
-    ca: DigiCertGlobalRootCA.crt.pem
+    ca: serverCa
   }
 });
 
