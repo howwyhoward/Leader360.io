@@ -1,9 +1,11 @@
 const express = require('express');
 const mysql = require('mysql');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 
 const app = express();
 
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -23,7 +25,7 @@ connection.connect(function(err) {
 });
 
 // Create table query
-let createTableQuery = `
+/*let createTableQuery = `
   CREATE TABLE IF NOT EXISTS tblUSER (
     UserID INT AUTO_INCREMENT PRIMARY KEY,
     UserFname VARCHAR(30) NOT NULL,
@@ -56,9 +58,11 @@ connection.query(insertQuery, [users], function (error, results, fields) {
   if (error) throw error;
   console.log('Inserted ' + results.affectedRows + ' rows');
 });
+*/
+
 
 app.get('/getUserName', (req, res) => {
-  const userEmail = req.body.email;
+  const userEmail = req.query.email;
   const query = 'SELECT UserFname FROM tblUSER WHERE UserEmail = ?';
 
   connection.query(query, [userEmail], (error, results, fields) => {

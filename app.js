@@ -5,24 +5,22 @@ const navLogo = document.querySelector('#navbar__logo');
 
 
 
-/*document.getElementById('submit-button').addEventListener('click', function() {
+document.getElementById('submit-button').addEventListener('click', function() {
   const email = document.getElementById('email-input').value;
 
-  connection.query('SELECT UserFname FROM tblUSER WHERE UserEmail = ?', [email], function(error, results, fields) {
-      if (error) throw error;
-
-      if (results.length > 0) {
-        document.getElementById('username').textContent = 'User Name: ' + results[0].UserFname;
-      } else {
-        document.getElementById('username').textContent = 'No user found with the provided email';
-      }
+  $.ajax({
+    url: 'https://leadership-internship2.azurewebsites.net/',
+    method: 'GET',
+    data: { email: email },
+    success: function(res) {
+      const heroHeading = document.querySelector('.hero__heading');
+      heroHeading.textContent = res;
+    },
+    error: function(err) {
+      console.log(err);
+    }
   });
 });
-
-*/
-
-
-
 
 
 const mobileMenu = () => {
