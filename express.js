@@ -49,6 +49,10 @@ const db = mysql.createConnection({
     port     : '3306'
 });
 
+app.get('/', (req,res) => {
+  console.log('started application');
+});
+
 app.post('/getUser', (req, res) => {
     console.log('getuser');
     const email = req.body.email;
