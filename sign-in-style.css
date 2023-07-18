@@ -19,6 +19,10 @@ body {
     border-radius: 3px;
 }
 
+login-contianer {
+    position: relative;
+}
+
 h1 {
     text-align: center;
     padding-top: 15px;
@@ -70,10 +74,13 @@ p {
 }
 
 .p1 {
+    position: absolute;
     text-align: center;
     color: #161616;
     font-size: 15px;
     margin-top: 25%;
+    bottom: 49%;
+    right: 40.5%;
 }
 
 a:link {

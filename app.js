@@ -62,8 +62,8 @@ function redirectToLogin() {
 let leaders = JSON.parse(localStorage.getItem('LeaderRoster'));
 
 if (leaders && leaders.length > 0) {
-    let name = leaders[0].Name;
-
-    document.getElementById('leader-name').textContent = name;
+    let fullname = leaders[0].Name;
+    let firstname = fullname.split(' ')[0];
+    document.getElementById('leader-name').textContent = firstname;
 }
 

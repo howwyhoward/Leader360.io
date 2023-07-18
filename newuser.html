@@ -22,8 +22,8 @@
                 <label for="password">Password</label>
                 <input type="password" id="password" placeholder="Password"/>
             <div class="formBox">
-                <label for="password">Confirm Password</label>
-                <input type="password" id="password" placeholder="Password"/>    
+                <label for="confirm_password">Confirm Password</label>
+                <input type="password" id="confirm_password" placeholder="Password"/>    
             <div class="formBox">
                 <button id="btn">Create Account</button>
             </div>
@@ -40,6 +40,15 @@
         // example {id:2389467928374, name: 'Sebastian Myers', email: 'sexyseb123@gmail.com'}
         const addLeader = (ev)=>{
             ev.preventDefault(); // stop the form submitting
+
+            let password = document.getElementById('password').value;
+            let confirmpasswrod = document.getElementById('confirm_password').value;
+
+            if (password !== confirmpasswrod) {
+                alert("Passwords do not match.")
+                return;
+            }
+
             let leader = {
                 ID: Date.now(),
                 Name: document.getElementById('title').value,
