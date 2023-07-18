@@ -39,7 +39,7 @@ $(document).ready(function() {
         let email = $('#email').val();
         console.log();
         $.ajax({
-            url: `/getUser?email=${encodeURIComponent(email)}`,
+            url: `leadership-internship2.azurewebsites.net/getUser?email=${encodeURIComponent(email)}`,
             type: 'GET',
             success: function(data) {
                 //console.log('success');
