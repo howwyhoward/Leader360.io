@@ -1,4 +1,5 @@
 $(document).ready(function() {
+  console.log('in function');
   $('#user-form').on('submit', function(e) {
       e.preventDefault();
 
@@ -11,6 +12,7 @@ $(document).ready(function() {
               email: email
           },
           success: function(data) {
+              console.log('success');
               $('#result').html(`Full name: ${data.UserFname} ${data.UserLname}`);
           },
           error: function(error) {

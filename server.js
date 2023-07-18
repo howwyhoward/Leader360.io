@@ -50,6 +50,7 @@ const db = mysql.createConnection({
 });
 
 app.post('/getUser', (req, res) => {
+    console.log('getuser');
     const email = req.body.email;
     const query = 'SELECT UserFname, UserLname FROM tbluser WHERE UserEmail = ?';
 
