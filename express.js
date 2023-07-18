@@ -41,7 +41,7 @@ const app = express();
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
-const db = createConnection({
+const db = mysql.createConnection({
     host: 'leadershipmysql.mysql.database.azure.com',
     user: 'leadershipmysqladmin',
     password: 'R3dD#ad24398L',
