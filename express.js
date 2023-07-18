@@ -3,6 +3,7 @@ var express = require('express');
 var mysql = require('mysql');
 var bodyParser = require('body-parser');
 var cors = require('cors');
+const http = require('http');
 
 var app = express();
 
@@ -57,7 +58,7 @@ app.get('/', function(req,res){
 
 });
 
-app.listen(3000,function() {
- console.log("example app listening on 3000");
+app.listen(80,function() {
+ console.log("example app listening on 80");
 
 });
