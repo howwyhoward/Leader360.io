@@ -34,12 +34,12 @@ connection.query(insertQuery, [users], function (error, results, fields) {
 });
 */
 
-import express from 'express';
-import { createConnection } from 'mysql';
-import { urlencoded } from 'body-parser';
+const express = require('express');
+const mysql = require('mysql');
+const bodyParser = require('body-parser');
 const app = express();
 
-app.use(urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 const db = createConnection({
     host: 'leadershipmysql.mysql.database.azure.com',
