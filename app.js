@@ -5,22 +5,24 @@ const navLogo = document.querySelector('#navbar__logo');
 
 
 
-document.getElementById('submit-button').addEventListener('click', function() {
+document.getElementById('submit-button').addEventListener('click', function(e) {
+  e.preventDefault();
   const email = document.getElementById('email-input').value;
-
   $.ajax({
-    url: 'https://leadership-internship2.azurewebsites.net/',
-    method: 'GET',
+    type: "GET",
+    url: "https://leadership-internship2.azurewebsites.net/getUserName",
     data: { email: email },
-    success: function(res) {
-      const heroHeading = document.querySelector('.hero__heading');
-      heroHeading.textContent = res;
+    success: function(data) {
+        const userNameSpan = document.getElementById('user-name');
+        userNameSpan.textContent = data;
     },
-    error: function(err) {
-      console.log(err);
+    error: function(error) {
+        console.error('Error:', error);
     }
   });
 });
+
+
 
 
 const mobileMenu = () => {
