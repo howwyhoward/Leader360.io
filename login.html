@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Putting User input into JS Obejects</title>
+    <link rel="stylesheet" href="sign-in-style.css">
+</head>
+<body>
+    <div class="login-box">
+        <h1>Login</h1>
+        <form>            
+            <div class = "formBox">
+                <label for="email">Email</label>
+                <input type="email" id="email" placeholder="Email"/>
+            </div>
+            <div class="formBox">
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="Password"/>
+            <div class="formBox">
+                <button id="btn">Log In</button>
+            </div>
+        </form>
+    </div>
+    <p class="p1">Not have an account? <a href="newuser.html">Sign Up Here</a></p>
+    <script>
+        // Retrieve the leaders array from localStorage
+        let leaders = JSON.parse(localStorage.getItem('LeaderRoster'));
+    
+        // Correct login?
+        document.querySelector('form').addEventListener('submit', function (event) {
+            event.preventDefault();
+    
+            let emailInput = document.getElementById('email').value;
+            let passwordInput = document.getElementById('password').value;
+    
+            // validate the user's inputs
+            let leader = leaders.find(function (leader) {
+                return leader.Email === emailInput && leader.Password === passwordInput;
+            });
+    
+            if (leader) {
+                window.location.href = 'index.html';
+            } else {
+                alert('Incorrect email or password. Please try again.');
+            }
+        });
+    </script>    
+    <script src="app.js"></script>
+</body>
+</html>

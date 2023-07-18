@@ -52,3 +52,18 @@ const hideMobileMenu = () => {
 
 menuLinks.addEventListener('click', hideMobileMenu);
 navLogo.addEventListener('click', hideMobileMenu);
+
+// rediect to login page when button is clicked //
+function redirectToLogin() {
+    window.location.href = 'newuser.html';
+}
+
+// retrive leader array
+let leaders = JSON.parse(localStorage.getItem('LeaderRoster'));
+
+if (leaders && leaders.length > 0) {
+    let name = leaders[0].Name;
+
+    document.getElementById('leader-name').textContent = name;
+}
+
