@@ -20,7 +20,7 @@
   
           let email = $('#email').val();
           $.ajax({
-            url: '/getUser',
+            url: 'leadershipinternship.azurewebsites.net/getUser',
             type: 'POST',
             data: JSON.stringify({ email: email }),
             contentType: 'application/json',
