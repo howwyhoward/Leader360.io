@@ -7,6 +7,7 @@ var cors = require('cors');
 var app = express();
 
 app.use(cors());
+app.use(express.json());
 
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -19,7 +20,23 @@ var db = mysql.createConnection({
     port     : '3306'
 });
 
-app.post('/submitEmail', (req, res) => {
+app.post('/getUser', (req, res) => {
+    const email = req.body.email;
+    const query = 'SELECT UserFname, UserLname FROM tblUser WHERE UserEmail = ?';
+  
+    db.query(query, [email], (error, results) => {
+      if (error) {
+        console.error(error);
+        res.status(500).json({ error: 'An error occurred while querying the database' });
+      } else if (results.length === 0) {
+        res.status(404).json({ error: 'No user found with the given email' });
+      } else {
+        const user = results[0];
+        res.json({ UserFname: user.UserFname, UserLname: user.UserLname });
+      }
+    });
+  });
+/*app.post('/submitEmail', (req, res) => {
     console.log("Inside getUser");
 
     const email = req.body.email;
@@ -33,7 +50,7 @@ app.post('/submitEmail', (req, res) => {
         }
         res.send(result[0]);
     });
-});
+});/*
 
 /*app.post('/submitEmail', (req, res) => {
     let email = req.body.email;
@@ -66,9 +83,7 @@ app.get('/', function(req,res){
 
 });
 
-//var port = process.env.PORT||3000; //which you can run both on Azure or local
-//console.log("example app listening on ", port);
-app.listen(3000,function() {
-//app.listen(port,function() {    
- console.log("example app listening on 3000");
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+  console.log(`Server running on port ${port}`);
 });
