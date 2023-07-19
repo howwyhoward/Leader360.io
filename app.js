@@ -30,7 +30,7 @@
 });
 */
 
-$(document).ready(function() {
+/*$(document).ready(function() {
     console.log('in function');
     console.info('test1');
     $('#user-form').on('submit', function(e) {
@@ -57,4 +57,4 @@ $(document).ready(function() {
         });
     });
   });
-  
+  */
