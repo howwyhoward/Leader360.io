@@ -78,7 +78,7 @@ app.get('/getUser', (req, res) => {
 });
 
 
-app.get('/', function(req,res){
+app.get('/helloworld', function(req,res){
  res.send('hello world 2')
 
 });
