@@ -12,6 +12,7 @@ body {
 }
 
 .login-box {
+    position: relative;
     width: 360px;
     height: 420px;
     margin: auto;
@@ -74,13 +75,20 @@ p {
 }
 
 .p1 {
-    position: absolute;
     text-align: center;
     color: #161616;
     font-size: 15px;
-    margin-top: 25%;
-    bottom: 49%;
-    right: 40.5%;
+    margin-top: 65px;
+}
+
+.p2 {
+    text-align: center;
+    color: #161616;
+    font-size: 15px;
+    position: absolute;
+    bottom: 50px;
+    left: 0;
+    right: 0;
 }
 
 a:link {
