@@ -20,7 +20,7 @@ var db = mysql.createConnection({
     port     : '3306'
 });
 
-app.post('/getUser', (req, res) => {
+/*app.post('/getUser', (req, res) => {
     const email = req.body.email;
     const query = 'SELECT UserFname, UserLname FROM tblUser WHERE UserEmail = ?';
   
@@ -36,6 +36,7 @@ app.post('/getUser', (req, res) => {
       }
     });
   });
+  */
 /*app.post('/submitEmail', (req, res) => {
     console.log("Inside getUser");
 

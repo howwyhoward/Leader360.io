@@ -1,40 +1,47 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Email Lookup</title>
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-  </head>
-  <body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Find User</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
     <form id="user-form">
-      <label for="email">Email:</label>
-      <input type="email" id="email" name="email" required>
-      <button type="submit">Submit</button>
+        <label for="email">Email:</label><br>
+        <input type="email" id="email" name="email" required>
+        <input type="submit" value="Find User">
     </form>
 
-    <div id="result"></div>
+    <p id="result"></p>
 
     <script>
-      $(document).ready(function() {
-        $('#user-form').on('submit', function(e) {
-          e.preventDefault();
-  
-          let email = $('#email').val();
-          $.ajax({
-            url: 'leadershipinternship.azurewebsites.net/getUser',
-            type: 'POST',
-            data: JSON.stringify({ email: email }),
-            contentType: 'application/json',
-            success: function(data) {
-                $('#result').html(`Full name: ${data.UserFname} ${data.UserLname}`);
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-              console.log("jqXHR: ", jqXHR);
-              console.log("textStatus: ", textStatus);
-              console.log("errorThrown: ", errorThrown);
-            }
+        $(document).ready(function() {
+          console.log('in function');
+          console.info('test1');
+          $('#user-form').on('submit', function(e) {
+              e.preventDefault();
+        
+              let email = $('#email').val();
+              console.log();
+              $.ajax({
+                  url: `/getUser?email=${encodeURIComponent(email)}`,
+                  type: 'GET',
+                  success: function(data) {
+                      //console.log('success');
+                      //console.info('test');
+                      $('#result').html(`Full name: ${data.UserFname} ${data.UserLname}`);
+                  },
+                  error: function(jqXHR, textStatus, errorThrown) {
+                    console.log("jqXHR: ", jqXHR);
+                    console.log("textStatus: ", textStatus);
+                    console.log("errorThrown: ", errorThrown);
+                }
+                  //error: function(error) {
+                  //    console.log('Error:', error);
+                  //}
+              });
           });
-        });
       });
     </script>
-  </body>
+</body>
 </html>
