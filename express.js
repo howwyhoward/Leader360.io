@@ -60,7 +60,7 @@ app.get('/helloworld', function(req,res){
 
 //var port = process.env.PORT||3000; //which you can run both on Azure or local
 
-app.listen(8080,function() {
+app.listen(3000,function() {
 //app.listen(port,function() {    
  console.log("example app listening on 3000");
  //console.log("example app listening on ", port);
