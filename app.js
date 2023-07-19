@@ -3,7 +3,6 @@ var express = require('express');
 var mysql = require('mysql');
 var bodyParser = require('body-parser');
 var cors = require('cors');
-const http = require('http');
 
 var app = express();
 
@@ -20,7 +19,7 @@ var db = mysql.createConnection({
     port     : '3306'
 });
 
-/*app.post('/getUser', (req, res) => {
+app.post('/submitEmail', (req, res) => {
     console.log("Inside getUser");
 
     const email = req.body.email;
@@ -35,8 +34,17 @@ var db = mysql.createConnection({
         res.send(result[0]);
     });
 });
-*/
 
+/*app.post('/submitEmail', (req, res) => {
+    let email = req.body.email;
+    let sql = 'SELECT first_name, last_name FROM users WHERE email = ?';
+    
+    db.query(sql, [email], (err, result) => {
+      if (err) throw err;
+      res.send(result);
+    });
+});*/
+  
 app.get('/getUser', (req, res) => {
     console.log("Inside getUser");
 
@@ -53,7 +61,7 @@ app.get('/getUser', (req, res) => {
 });
 
 
-app.get('/helloworld', function(req,res){
+app.get('/', function(req,res){
  res.send('hello world 2')
 
 });

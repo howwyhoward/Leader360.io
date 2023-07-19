@@ -1,19 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Find User</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-</head>
+<html>
 <body>
-    <form id="user-form">
-        <label for="email">Email:</label><br>
-        <input type="email" id="email" name="email" required>
-        <input type="submit" value="Find User">
-    </form>
 
-    <p id="result"></p>
+<h2>Email Input Form</h2>
 
-    <script src="app.jsx"></script>
+<form action="http://localhost:3000/submitEmail" method="post">
+  <label for="email">Email:</label><br>
+  <input type="email" id="email" name="email" required><br>
+  <input type="submit" value="Submit">
+
 </body>
 </html>
