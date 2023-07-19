@@ -53,16 +53,16 @@ app.get('/getUser', (req, res) => {
 });
 
 
-app.get('/', function(req,res){
+app.get('/helloworld', function(req,res){
  res.send('hello world 2')
 
 });
 
-var port = process.env.PORT||3000; //which you can run both on Azure or local
+//var port = process.env.PORT||3000; //which you can run both on Azure or local
 
-//app.listen(3000,function() {
-app.listen(port,function() {    
- //console.log("example app listening on 3000");
- console.log("example app listening on ", port);
+app.listen(3000,function() {
+//app.listen(port,function() {    
+ console.log("example app listening on 3000");
+ //console.log("example app listening on ", port);
 
 });
