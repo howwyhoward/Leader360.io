@@ -4,7 +4,7 @@ const mysql = require('mysql');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const path = require('path');
-
+const session = require('express-session');
 // Removed the incorrect line here.
 
 const app = express();
@@ -30,6 +30,13 @@ db.connect((err) => {
     }
     console.log('Connected to the database!');
 });
+
+app.use(session({
+    secret: 'meow', // Replace 'secret' with a real secret in your production app
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false } // Set secure to true if you are using https
+}));
 
 // Route to handle the form data from the client
 app.post('/addUser', (req, res) => {
@@ -63,9 +70,42 @@ app.get('/getUser', (req, res) => {
     });
 });
 
+app.post('/login', (req, res) => {
+    console.log('Received login request', req.body);
+    const loginData = req.body; // The login data sent by the client
+
+    // Fetch the user from the mysql database
+    const query = 'SELECT UserPassword FROM tblUser WHERE UserEmail = ?';
+    db.query(query, [loginData.Email], (err, result) => {
+        if (err) {
+            console.error('Error executing the database query: ', err);
+            return res.status(500).json({ success: false });
+        }        
+        
+        if (result.length === 0) {
+            return res.json({ success: false });
+        }
+        // if provided password unmatch the databse password on the user
+        if (result[0].UserPassword !== loginData.Password) {
+            return res.json({ success: false });
+        }
+
+        //user authenticated successfully
+        console.log('User logged in successfully!');
+        req.session.email = loginData.Email;
+        return res.json({ success: true});
+    });
+
+});
+
+// Setup the express-session middleware
+
+
 app.get('/helloworld', function(req,res){
     res.send('hello world 2')
 });
+
+
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {

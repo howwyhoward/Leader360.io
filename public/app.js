@@ -1,3 +1,4 @@
+// app.js
 const menu = document.querySelector('#mobile-menu');
 const menuLinks = document.querySelector('.navbar__menu');
 const navLogo = document.querySelector('#navbar__logo');
@@ -58,12 +59,14 @@ function redirectToLogin() {
     window.location.href = 'newuser.html';
 }
 
-// retrive leader array
-let leaders = JSON.parse(localStorage.getItem('LeaderRoster'));
+// retrive user data
+let userEmail = localStorage.getItem('UserEmail');
 
-if (leaders && leaders.length > 0) {
-    let fullname = leaders[0].Name;
-    let firstname = fullname.split(' ')[0];
-    document.getElementById('leader-name').textContent = firstname;
+if (userEmail) {
+    fetch('http://localhost:3000/getUser?email=' + userEmail)
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById('leader-name').textContent = data.UserFname;
+    })
+    .catch(error => console.error('Error:', error));
 }
-
