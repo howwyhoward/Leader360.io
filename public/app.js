@@ -14,28 +14,27 @@ menu.addEventListener('click', mobileMenu)
 const highlightMenu = () => {
     const elem = document.querySelector('.highlight')
     const homeMenu = document.querySelector('#home-page')
-    const aboutMenu = document.querySelector('#about-page')
     const featuresMenu = document.querySelector('#features-page')
+    const feedbackMenu = document.querySelector('#feedback-page')
+    const aboutMenu = document.querySelector('#about-page')
     let scrollPos = window.scrollY
 
-    // adds 'highlight' class to menu items
-    if(window.innerWidth > 960 && scrollPos < 600) {
-        homeMenu.classList.add('highlight')
-        aboutMenu.classList.remove('highlight')
-        return
-    } else if (window.innerWidth > 960 && scrollPos < 1400) {
-        aboutMenu.classList.add('highlight')
-        homeMenu.classList.remove('highlight')
-        featuresMenu.classList.remove('highlight')
-        return
-    } else if (window.innerWidth > 960 && scrollPos < 2345) {
-        featuresMenu.classList.add('highlight')
-        aboutMenu.classList.remove('highlight')
-        return
-    } 
+    homeMenu.classList.remove('highlight')
+    featuresMenu.classList.remove('highlight')
+    feedbackMenu.classList.remove('highlight')
+    aboutMenu.classList.remove('highlight')
 
-    if(elem && window.innerWidth < 960 && scrollPos < 600 || elem) {
-        elem.classList.remove('highlight')
+    // adds 'highlight' class to menu items
+    if(window.innerWidth > 960 && scrollPos < 550) {
+        homeMenu.classList.add('highlight')
+    } else if (window.innerWidth > 960 && scrollPos < 1400) {
+        featuresMenu.classList.add('highlight')
+    } else if (window.innerWidth > 960 && scrollPos < 2000) {
+        feedbackMenu.classList.add('highlight')
+    } else if (window.innerWidth > 960 && scrollPos < 2750) {
+        aboutMenu.classList.add('highlight')
+    } else if (window.innerWidth > 960 && scrollPos >= 2750) {
+        // Removes highlight from all items when scrolled past about section
     }
 }
 

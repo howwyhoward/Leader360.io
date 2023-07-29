@@ -20,10 +20,13 @@
                     <a href="#home" class="navbar__links" id="home-page">Home</a>
                 </li>
                 <li class="navbar__item">
-                    <a href="#about" class="navbar__links" id="about-page">About</a>
+                    <a href="#features" class="navbar__links" id="features-page">Features</a>
                 </li>
                 <li class="navbar__item">
-                    <a href="#features" class="navbar__links" id="features-page">Features</a>
+                    <a href="#feedback" class="navbar__links" id="feedback-page">Feedback</a>
+                </li>
+                <li class="navbar__item">
+                    <a href="#about" class="navbar__links" id="about-page">About</a>
                 </li>
                 <li class="navbar__btn">
                     <a href="#sign-up" class="button" id="signup" onclick="redirectToLogin()">Sign In</a>
@@ -40,22 +43,7 @@
             <button class="main__btn"><a href="#">Generate Summary</a></button>
         </div>
     </div>
-
-    <!-- About Section -->
-    <div class="main" id="about">
-        <div class="main__container">
-            <div class="main__canvas">
-                <canvas id="ratingCanvas" width="400" height="450"></canvas>
-            </div>
-            <div class="main__content">
-                <h1>How does our AI model work?</h1>
-                <h2>We recognize the time-consuming effort to review feedback. Our AI model streamlines this process by aggregating comments from your employer, peers, and self-evaluations to generate a concise, comprehensive summary. It highlights your unique strengths and pinpoints areas for development, empowering you to foster professional growth.</h2>
-                <p>Need help with something?</p>
-                <button class="main__btn"><a href="#">Contact us</a></button>
-            </div>
-        </div>
-    </div>
-
+                    
     <!-- App Features Section -->
     <div class="features" id="features">
         <h1>Assessment Features</h1>
@@ -83,6 +71,33 @@
         </div>
     </div>
 
+    <!-- Feedback Section -->
+    <div class="feedback" id="feedback">
+        <div class="fb__container">
+            <h1 class="fb__heading">Submit a Feedback</span></h1>
+            <p class="fb__description">Your feedback will be anonymous, but your role will be visible to the recipient.</p>
+            <button class="fb__btn fb__btn1">Manager</button>
+            <button class="fb__btn fb__btn2">Team Member</button>
+            <button class="fb__btn fb__btn2">Peer</button>
+            <button class="fb__btn fb__btn4">Self</button>
+        </div>
+    </div>
+
+    <!-- About Section -->
+    <div class="main" id="about">
+        <div class="main__container">
+            <div class="main__canvas">
+                <canvas id="ratingCanvas" width="400" height="450"></canvas>
+            </div>
+            <div class="main__content">
+                <h1>How does our AI model work?</h1>
+                <h2>We recognize the time-consuming effort to review feedback. Our AI model streamlines this process by aggregating comments from your employer, peers, and self-evaluations to generate a concise, comprehensive summary. It highlights your unique strengths and pinpoints areas for development, empowering you to foster professional growth.</h2>
+                <p>Need help with something?</p>
+                <button class="main__btn"><a href="#">Contact us</a></button>
+            </div>
+        </div>
+    </div>
+
     <!-- Feature Section -->
     <div class="main1" id="sign-up">
         <div class="main1__container">
@@ -92,12 +107,12 @@
                 <button onclick="redirectToLogin()" class="main__btn"><a href="#">Sign Up</a></button>
             </div>
             <div class="main__img--container">
-                <div class="main__img--card" id="card-2"><i class="fas fa-users"></i></class>
+                <div class="main__img--card" id="card-2"><i class="fas fa-users"></i></div>
             </div>
             </div>
         </div>
     </div>
-
+    
     <!-- Footer Section-->
     <div class="footer__container">
         <div class="footer__links">
