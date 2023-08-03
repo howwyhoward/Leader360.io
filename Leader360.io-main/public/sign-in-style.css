@@ -1,0 +1,107 @@
+body {
+    background-color: #005190;
+    font-family: 'Roboto', sans-serif;
+}
+
+.signup-box {
+    width: 360px;
+    height: 650px;
+    margin: auto;
+    background-color: #fff;
+    border-radius: 3px;
+}
+
+.login-box {
+    position: relative;
+    width: 360px;
+    height: 420px;
+    margin: auto;
+    background-color: #fff;
+    border-radius: 3px;
+}
+
+login-contianer {
+    position: relative;
+}
+
+h1 {
+    text-align: center;
+    padding-top: 15px;
+}
+
+form {
+    width: 300px;
+    margin-left: 20px;
+}
+
+form label {
+    display: flex;
+    margin-top: 20px;
+    font-size: 16px;
+}
+
+form input{
+    width: 100%;
+    padding: 7px;
+    border: none;
+    border: 1px solid #161616;
+    border-radius: 6px;
+    outline: none;
+}
+
+#btn {
+    width: 320px;
+    height: 35px;
+    margin-top: 20px;
+    border: none;
+    background: #D38312;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to left, #A83279, #D38312);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to left, #A83279, #D38312); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */   
+    color: #fff;
+    font-size: 17px;
+    cursor: pointer;
+    opacity: 0.9;
+}
+
+#btn:hover {
+    opacity: 1;
+    transition: all 0.3s ease-in-out; 
+}
+
+p {
+    text-align: center;
+    padding-top: 10px;
+    font-size: 14px;
+}
+
+.p1 {
+    text-align: center;
+    color: #161616;
+    font-size: 15px;
+    margin-top: 45px;
+}
+
+.p2 {
+    text-align: center;
+    color: #161616;
+    font-size: 15px;
+    position: absolute;
+    bottom: 50px;
+    left: 0;
+    right: 0;
+}
+
+a:link {
+    color: #005190; /* Color for links that have not been visited */
+}
+
+a:visited {
+    color: #7e245a; /* Color for links that have been visited */
+}
+
+a:hover {
+    color: #A83279; /* Color when hovering over the link */
+}
+
+
+
