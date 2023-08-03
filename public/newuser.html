@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Sign Up</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="sign-in-style.css">
+</head>
+<body>
+    <div class="signup-box">
+        <h1>Sign Up</h1>
+        <form>
+            <div class="formBox">
+                <label for="fname">First Name</label>
+                <input type="text" id="fname" placeholder="First Name"/>
+            </div>
+            <div class="formBox">
+                <label for="lname">Last Name</label>
+                <input type="text" id="lname" placeholder="Last Name"/>
+            </div>
+            <div class = "formBox">
+                <label for="email">Email</label>
+                <input type="email" id="email" placeholder="Email"/>
+            </div>
+            <div class="formBox">
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="Password"/>
+            </div>
+            <div class="formBox">
+                <label for="confirm_password">Confirm Password</label>
+                <input type="password" id="confirm_password" placeholder="Password"/> 
+            </div>   
+            <div class="formBox">
+                <button id="btn" onclick="addLeader(event)">Create Account</button>
+            </div>
+            <div id="msg">
+                <pre></pre>
+            </div>
+        </form>
+        <p>By clicking the Sign Up button, you agree to our <br>
+        <a href="#">Terms and Conditions</a> and <a href="#">Policy Privacy</a></p>
+    <p class="p1">Already have an account? <a href="login.html">Login here</a></p>
+    </div>
+    <script>
+        const addLeader = (ev) => {
+            ev.preventDefault();
+        
+            let password = document.getElementById('password').value;
+            let confirmPassword = document.getElementById('confirm_password').value;
+        
+            if (password !== confirmPassword) {
+                alert("Passwords do not match.")
+                return;
+            }
+        
+            // Form data to be sent to the server
+            let formData = {
+                FirstName: document.getElementById('fname').value,
+                LastName: document.getElementById('lname').value,
+                Email: document.getElementById('email').value,
+                Password: document.getElementById('password').value
+            };
+        
+            // Send the form data to the server using fetch API
+            fetch('http://localhost:3000/addUser', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(response => {
+                // Check if the response indicates success or error
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                // The 'data' variable now holds the actual JSON data from the server
+                console.log(data); // For example, ( success: true ) if the account was created successfully
+                document.forms[0].reset(); //clear the form for next user entry
+                
+                // redirect to login after creating account
+                if (data.success) {
+                    window.location.href = 'login.html';
+                    
+                } else {
+                    alert('Account creation failed. Please try again.')
+                }
+            })
+            .catch(error => {
+                console.error('Error occurred:', error);
+            });
+        };
+
+        document.querySelector('form').addEventListener('submit', addLeader);
+    </script>
+</body>
+</html>
