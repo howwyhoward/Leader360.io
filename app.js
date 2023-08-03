@@ -50,5 +50,14 @@ const hideMobileMenu = () => {
     } 
 }
 
-menuLinks.addEventListener('click', hideMobileMenu);
-navLogo.addEventListener('click', hideMobileMenu);
+
+app.get('/helloworld', function(req,res){
+ res.send('hello world 2')
+
+});
+
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+  console.log(`Server running on port ${port}`);
+});
+
