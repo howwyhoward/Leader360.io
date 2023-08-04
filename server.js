@@ -9,7 +9,7 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const session = require('express-session');
 var router = express.Router()
-//const blobStream = require('blob-stream');
+const blobStream = require('blob-stream');
 // Removed the incorrect line here.
 
 
@@ -36,7 +36,6 @@ db.connect((err) => {
         return;
     }
     console.log('Connected to the database!');
-    console.log('it connected!!')
 });
 
 app.use(session({
@@ -67,44 +66,51 @@ app.get('/getUser', (req, res) => {
     console.log("Inside getUser");
 
     const email = req.query.email;
-    const query = 'SELECT UserFname, UserLname FROM tblUser WHERE UserEmail = ?';
+    const password = req.query.password;
+    const query = 'SELECT UserFname, UserLname FROM tblUser WHERE UserEmail = ? AND UserPassword = ?';
 
-    db.query(query, email, (err, result) => {
+    db.query(query, [email, password], (err, result) => {
         if (err) {
             console.error('An error occurred while executing the query');
             return res.status(500).send(err);
         }
+
+        if (result.length === 0) {
+            // If no user is found with the provided email and password, return an appropriate message
+            return res.status(404).send('User not found.');
+        }
+
         res.send(result[0]);
     });
 });
 
-app.post('/login', (req, res) => {
-    console.log('Received login request', req.body);
-    const loginData = req.body; // The login data sent by the client
+// app.post('/login', (req, res) => {
+//     console.log('Received login request', req.body);
+//     const loginData = req.body; // The login data sent by the client
 
-    // Fetch the user from the mysql database
-    const query = 'SELECT UserPassword FROM tblUser WHERE UserEmail = ?';
-    db.query(query, [loginData.Email], (err, result) => {
-        if (err) {
-            console.error('Error executing the database query: ', err);
-            return res.status(500).json({ success: false });
-        }        
+//     // Fetch the user from the mysql database
+//     const query = 'SELECT UserPassword FROM tblUser WHERE UserEmail = ?';
+//     db.query(query, [loginData.Email], (err, result) => {
+//         if (err) {
+//             console.error('Error executing the database query: ', err);
+//             return res.status(500).json({ success: false });
+//         }        
         
-        if (result.length === 0) {
-            return res.json({ success: false });
-        }
-        // if provided password unmatch the databse password on the user
-        if (result[0].UserPassword !== loginData.Password) {
-            return res.json({ success: false });
-        }
+//         if (result.length === 0) {
+//             return res.json({ success: false });
+//         }
+//         // if provided password unmatch the databse password on the user
+//         if (result[0].UserPassword !== loginData.Password) {
+//             return res.json({ success: false });
+//         }
 
-        //user authenticated successfully
-        console.log('User logged in successfully!');
-        req.session.email = loginData.Email;
-        return res.status(200).json({ success: true });
-    });
+//         //user authenticated successfully
+//         console.log('User logged in successfully!');
+//         req.session.email = loginData.Email;
+//         return res.status(200).json({ success: true });
+//     });
 
-});
+// });
 
 app.post('/addComment', (req, res) => {
     const dataForm1 = req.body; // The form data sent by the client
@@ -163,4 +169,3 @@ const port = process.env.PORT || 3000;
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);
 });
-

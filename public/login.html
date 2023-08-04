@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -85,4 +85,80 @@
     </script>  
     <script src="app.js"></script>
 </body>
-</html>
+</html> -->
+<!-- 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Find User</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+    <form id="user-form">
+        <label for="email">Email:</label><br>
+        <input type="email" id="email" name="email" required>
+        <label for="password">Password:</label><br>
+        <input type="password" id="password" name="password" required>
+        <input type="submit" value="Find User">
+    </form> -->
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Login Page</title>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    </head>
+    <body>
+        <h1>Login</h1>
+        <form id="user-form">
+            <label for="email">Email:</label><br>
+            <input type="email" id="email" name="email" required><br>
+            <label for="password">Password:</label><br>
+            <input type="password" id="password" name="password" required><br>
+            <input type="submit" value="Login">
+        </form>
+    
+        <p id="result"></p>
+    
+        <script>
+            $(document).ready(function() {
+                console.log('in function');
+                console.info('test1');
+                $('#user-form').on('submit', function(e) {
+                    e.preventDefault();
+        
+                    let email = $('#email').val();
+                    let password = $('#password').val();
+                    console.log(email, password);
+        
+                    $.ajax({
+                        url: `https://leadershipinternship.azurewebsites.net/getUser`,
+                        type: 'GET',
+                        data: {
+                            email: email,
+                            password: password
+                        },
+                        success: function(data) {
+                            console.log('success');
+                            console.info('test');
+                            // $('#result').html(`Full name: ${data.UserFname} ${data.UserLname}`);
+                            // Set first name and last name in localStorage
+                            localStorage.setItem('firstName', data.UserFname);
+                            localStorage.setItem('lastName', data.UserLname);
+    
+                            // Redirect to the other HTML file
+                            window.location.href = 'index.html';
+                        },
+                        error: function(jqXHR, textStatus, errorThrown) {
+                            console.log("jqXHR: ", jqXHR);
+                            console.log("textStatus: ", textStatus);
+                            console.log("errorThrown: ", errorThrown);
+                        }
+                    });
+                });
+            });
+        </script>
+    </body>
+    </html>

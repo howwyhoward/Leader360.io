@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
     <nav class="navbar">
@@ -33,13 +34,32 @@
     </nav>
 
     <!-- Hero Section -->
-    <div class="hero" id="home">
+    <!-- <div class="hero" id="home">
         <div class="hero__container">
             <h1 class="hero__heading">Hello <span id="leader-name"></span>, your report<span> is Ready</span></h1>
             <p class="hero__description">360-Degree Feedback, for Greater Performance</p>
             <button class="main__btn"><a href="#">Generate Summary</a></button>
         </div>
+    </div> -->
+    <div class="hero" id="home">
+        <div class="hero__container">
+            <!-- The span below will be dynamically updated with the first name -->
+            <h1 class="hero__heading">Hello <span id="leader-name"></span>, your report<span> is Ready</span></h1>
+            <p class="hero__description">360-Degree Feedback, for Greater Performance</p>
+            <button class="main__btn"><a href="#">Generate Summary</a></button>
+        </div>
     </div>
+
+    <script>
+        // Retrieve first name and last name from localStorage
+        var firstName = localStorage.getItem('firstName');
+        var lastName = localStorage.getItem('lastName');
+
+        // Update the content in the 'hero__heading' element
+        if (firstName && lastName) {
+            document.getElementById('leader-name').textContent = firstName + ' ' + lastName;
+        }
+    </script>
 
     <!-- About Section -->
     <div class="main" id="about">
