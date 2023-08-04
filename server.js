@@ -36,6 +36,7 @@ db.connect((err) => {
         return;
     }
     console.log('Connected to the database!');
+    console.log('it connected!!')
 });
 
 app.use(session({
