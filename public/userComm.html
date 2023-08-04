@@ -16,7 +16,7 @@
   <script>
     function fetchComments() {
       const userEmail = document.getElementById('userEmailInput').value;
-      const url = `leadershipinternship.azurewebsites.net/getComment?UserEmail=${encodeURIComponent(userEmail)}`;
+      const url = `http://localhost:3000/getComment?UserEmail=${encodeURIComponent(userEmail)}`;
 
       fetch(url)
         .then(response => {
