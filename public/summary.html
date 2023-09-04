@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenAI Summarizer</title>
+</head>
+<body>
+
+<textarea id="inputText" rows="4" cols="50"></textarea>
+<button onclick="summarizeText()">Summarize</button>
+
+<p>Summary: <span id="summaryText"></span></p>
+
+<script>
+    async function summarizeText() {
+        const text = document.getElementById('inputText').value;
+        try {
+            const response = await fetch('/summarize', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ text: text })
+            });
+            const data = await response.json();
+            document.getElementById('summaryText').innerText = data.summary;
+        } catch (error) {
+            console.error("There was an error summarizing the text.", error);
+        }
+    }
+</script>
+</body>
+</html>
