@@ -22,7 +22,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // MySQL database connection settings
 const db = mysql.createConnection({
-    host: 'leadershipmysql.mysql.database.azure.com',
+    host: 'leadershipmysqldb2.mysql.database.azure.com',
     user: 'leadershipmysqladmin',
     password: 'R3dD#ad24398L',
     database: 'leadershipmysqldb',
