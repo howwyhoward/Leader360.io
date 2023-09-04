@@ -1,0 +1,59 @@
+<!-- Your HTML page with a form to enter the user's email and a button -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Comments</title>
+</head>
+<body>
+  <h1>User Comments</h1>
+  <div>
+    <input type="email" id="userEmailInput" placeholder="Enter your email">
+    <button onclick="fetchComments()">Get Comments</button>
+  </div>
+  <p class="p1">Have no comments?? <a href="comments.html">Insert comments here</a></p>
+  <div id="commentData"></div>
+
+  <script>
+    function fetchComments() {
+      const userEmail = document.getElementById('userEmailInput').value;
+      const url = `https://leadershipinternship.azurewebsites.net/getComment?UserEmail=${encodeURIComponent(userEmail)}`;
+
+      fetch(url)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        })
+        .then(data => {
+          const commentDataDiv = document.getElementById('commentData');
+          if (data.success) {
+            const commentData = data.commentData;
+            // Display the comments in the commentDataDiv
+            commentDataDiv.innerHTML = `
+              <p><strong>Integrity:</strong> ${commentData.Integrity}</p>
+              <p><strong>PersonalORG:</strong> ${commentData.PersonalORG}</p>
+              <p><strong>Improvement:</strong> ${commentData.Improvement}</p>
+              <p><strong>Performance:</strong> ${commentData.Performance}</p>
+              <p><strong>Communication:</strong> ${commentData.Communication}</p>
+              <p><strong>Future:</strong> ${commentData.Future}</p>
+              <p><strong>Change:</strong> ${commentData.Change}</p>
+              <p><strong>Teamwork:</strong> ${commentData.Teamwork}</p>
+              <p><strong>Collaboration:</strong> ${commentData.Collaboration}</p>
+              <p><strong>Achievement:</strong> ${commentData.Achievement}</p>
+              <p><strong>Closing:</strong> ${commentData.Closing}</p>
+            `;
+          } else {
+            commentDataDiv.innerHTML = '<p>No comments found for the user.</p>';
+          }
+        })
+        .catch(error => {
+          console.error('Error fetching comment data:', error.message);
+          const commentDataDiv = document.getElementById('commentData');
+          commentDataDiv.innerHTML = '<p>Error fetching comment data.</p>';
+        });
+    }
+  </script>
+  <a href="index.html">Home Screen</a>
+</body>
+</html>

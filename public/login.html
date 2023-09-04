@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -25,63 +25,140 @@
         </div>
         <p class="p2">Not have an account? <a href="newuser.html">Sign Up Here</a></p>
     </div>
+
     <script>
-    const emailInput = document.getElementById('email');
-    const passwordInput = document.getElementById('password');
-    const loginForm = document.getElementById('login-form');
-
-    emailInput.addEventListener('focus', removeErrorMessage);
-    passwordInput.addEventListener('focus', removeErrorMessage);
-
-    function removeErrorMessage() {
-        const oldErrorMessage = document.querySelector('.error-message');
-        if (oldErrorMessage) {
-            oldErrorMessage.remove();
-        }
-    }
-
-    loginForm.addEventListener('submit', function(event) {
-        event.preventDefault();
+        // Retrieve the leaders array from localStorage
+        let leaders = JSON.parse(localStorage.getItem('LeaderRoster'));
         
-        removeErrorMessage(); //remove any error message when form is submitted
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+        const loginForm = document.getElementById('login-form');
 
-        let loginData = {
-            Email: emailInput.value,
-            Password: passwordInput.value
-        };
+        emailInput.addEventListener('focus',removeErrorMessage);
+        passwordInput.addEventListener('focus', removeErrorMessage);
 
-        // Sent the login data to the server using fetch API
-        fetch('http://localhost:3000/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(loginData)
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok')
+        function removeErrorMessage() {
+            const oldErrorMessage = document.querySelector('.error-message');
+            if (oldErrorMessage) {
+                oldErrorMessage.remove();
             }
-            return response.json();
-        })
-        .then(data => {
-            console.log(data);
+        }
 
-            if (data.success) {
-                localStorage.setItem('UserEmail', loginData.Email);
-                window.location.href = 'index.html';
-            } else {
+        // Correct login?
+        loginForm.addEventListener('submit', function (event) {
+            event.preventDefault();
+    
+            removeErrorMessage(); // Remove any existing error message when the form is submitted
+    
+            let emailInputValue = emailInput.value;
+            let passwordInputValue = passwordInput.value;
+        
+            // check if entered email exists in leader's array
+            let emailExists = leaders.some(function(leader) {
+                    return leader.Email === emailInputValue;
+            });
+    
+            if (!emailExists) {
                 let errorMessage = document.createElement('p');
-                errorMessage.textContent = 'Wrong email or password. Please try again.';
+                errorMessage.textContent = 'Account does not exist. Please create one first.';
                 errorMessage.style.color = 'red';
-                errorMessage.classList.add('error-message');
+                errorMessage.classList.add('error-message'); // Add a class to the error message
                 loginForm.appendChild(errorMessage);
+            } else {
+                // validate the user's inputs
+                let leader = leaders.find(function (leader) {
+                    return leader.Email === emailInputValue && leader.Password === passwordInputValue;
+                });
+            
+                if (leader) {
+                    window.location.href = 'index.html';
+                } else {
+                    // display "wrong email/password msg"
+                    let errorMessage = document.createElement('p');
+                    errorMessage.textContent = 'Wrong email or password. Please try again.';
+                    errorMessage.style.color = 'red';
+                    errorMessage.classList.add('error-message'); // Add a class to the error message
+                    loginForm.appendChild(errorMessage);
+                }
             }
-        })
-        .catch(error => {
-            console.error('Error occurred:', error);
         });
-    });
-    </script>
+    </script>  
+    <script src="app.js"></script>
 </body>
-</html>
+</html> -->
+<!-- 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Find User</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+    <form id="user-form">
+        <label for="email">Email:</label><br>
+        <input type="email" id="email" name="email" required>
+        <label for="password">Password:</label><br>
+        <input type="password" id="password" name="password" required>
+        <input type="submit" value="Find User">
+    </form> -->
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Login Page</title>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    </head>
+    <body>
+        <h1>Login</h1>
+        <form id="user-form">
+            <label for="email">Email:</label><br>
+            <input type="email" id="email" name="email" required><br>
+            <label for="password">Password:</label><br>
+            <input type="password" id="password" name="password" required><br>
+            <input type="submit" value="Login">
+        </form>
+    
+        <p id="result"></p>
+    
+        <script>
+            $(document).ready(function() {
+                console.log('in function');
+                console.info('test1');
+                $('#user-form').on('submit', function(e) {
+                    e.preventDefault();
+        
+                    let email = $('#email').val();
+                    let password = $('#password').val();
+                    console.log(email, password);
+        
+                    $.ajax({
+                        url: `https://leadershipinternship.azurewebsites.net/getUser`,
+                        type: 'GET',
+                        data: {
+                            email: email,
+                            password: password
+                        },
+                        success: function(data) {
+                            console.log('success');
+                            console.info('test');
+                            // $('#result').html(`Full name: ${data.UserFname} ${data.UserLname}`);
+                            // Set first name and last name in localStorage
+                            localStorage.setItem('firstName', data.UserFname);
+                            localStorage.setItem('lastName', data.UserLname);
+    
+                            // Redirect to the other HTML file
+                            window.location.href = 'index.html';
+                        },
+                        error: function(jqXHR, textStatus, errorThrown) {
+                            console.log("jqXHR: ", jqXHR);
+                            console.log("textStatus: ", textStatus);
+                            console.log("errorThrown: ", errorThrown);
+                        }
+                    });
+                });
+            });
+        </script>
+    </body>
+    </html>

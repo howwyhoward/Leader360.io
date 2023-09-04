@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
     <nav class="navbar">
@@ -26,20 +27,39 @@
                     <a href="#features" class="navbar__links" id="features-page">Features</a>
                 </li>
                 <li class="navbar__btn">
-                    <a href="#sign-up" class="button" id="signup">Sign Up</a>
+                    <a href="#sign-up" class="button" id="signup" onclick="redirectToLogin()">Sign Up</a>
                 </li>
             </ul>
         </div>
     </nav>
 
     <!-- Hero Section -->
+    <!-- <div class="hero" id="home">
+        <div class="hero__container">
+            <h1 class="hero__heading">Hello <span id="leader-name"></span>, your report<span> is Ready</span></h1>
+            <p class="hero__description">360-Degree Feedback, for Greater Performance</p>
+            <button class="main__btn"><a href="#">Generate Summary</a></button>
+        </div>
+    </div> -->
     <div class="hero" id="home">
         <div class="hero__container">
-            <h1 class="hero__heading">Hello ___ , your report<span> is Ready</span></h1>
+            <!-- The span below will be dynamically updated with the first name -->
+            <h1 class="hero__heading">Hello <span id="leader-name"></span>, your report<span> is Ready</span></h1>
             <p class="hero__description">360-Degree Feedback, for Greater Performance</p>
             <button class="main__btn"><a href="#">Generate Summary</a></button>
         </div>
     </div>
+
+    <script>
+        // Retrieve first name and last name from localStorage
+        var firstName = localStorage.getItem('firstName');
+        var lastName = localStorage.getItem('lastName');
+
+        // Update the content in the 'hero__heading' element
+        if (firstName && lastName) {
+            document.getElementById('leader-name').textContent = firstName + ' ' + lastName;
+        }
+    </script>
 
     <!-- About Section -->
     <div class="main" id="about">
@@ -78,56 +98,27 @@
             <div class="features__card">
                 <h2>Self</h2>
                 <p>Contains feedback from yourself</p>
-                <div class="features__btn"><button>See Result</button></div>
+                <div class="features__btn"><a href="userComm.html"><button>See Result</button></a></div>
             </div>
         </div>
     </div>
 
-    <!-- Sign UP Section -->>
+    <!-- Feature Section -->
     <div class="main1" id="sign-up">
         <div class="main1__container">
             <div class="main1__content">
                 <h1>See My Evaluations</h1>
-                <h2>Sign Up Now</h2>
-                <button class="main__btn"><a href="#">Sign Up</a></button>
+                <h2>Login / Sign Up</h2>
+                <button onclick="redirectToLogin()" class="main__btn"><a href="#">Sign Up</a></button>
             </div>
             <div class="main__img--container">
                 <div class="main__img--card" id="card-2"><i class="fas fa-users"></i></class>
             </div>
             </div>
-            <div class="email-form">
-                <!-- <div class="row col-md-6-col-md-offset-3"> -->
-                    <div class="panel panel-primary">
-                        <form action="connect.php" method="post">
-                            <div class="panel-heading">
-                                <label for="email">Email</label>
-                                <input id="email-input" type="text" placeholder="Enter your email" name="Email">
-                            </div>
-                            <div class="panel-heading2">
-                                <label for="First Name">First Name</label>
-                                <input id="First Name" type="text" placeholder="Enter your First Name" name="First_Name">
-                            </div>
-                            <div class="panel-heading3">
-                                <label for="Last Name">Last Name</label>
-                                <input id="Last Name" type="text" placeholder="Enter your Last Name" name="Last_Name">
-                            </div>
-                            <div class="panel-heading4">
-                                <label for="Username">Username</label>
-                                <input id="Username" type="text" placeholder="Enter your Username" name="Username">
-                            </div>
-                            <div class="panel-heading5">
-                                <label for="Password">Password</label>
-                                <input id="Password" type="text" placeholder="Enter your Password" name="Password">
-                            </div>
-                            <input type="submit" class="button submit-button">
-                        </form>
-                    </div>
-                </div>
-            </div> 
         </div>
     </div>
 
-    <!-- Footer Section-->>
+    <!-- Footer Section-->
     <div class="footer__container">
         <div class="footer__links">
             <div class="footer__links--wrapper">
@@ -147,11 +138,6 @@
                     <a href="/">Instagram</a>
                     <a href="/">Twitter</a>
                 </div>
-
-                <!-- <div id="email-form">
-                    <input id="email-input" type="email" placeholder="Enter your email" name="'email">
-                    <button id="submit-button">Submit</button>
-                </div> -->
                 
                 <div class="footer__link--items">
                     <h2>Legal</h2>
@@ -164,5 +150,3 @@
     <script src="app.js"></script>
 </body>
 </html>
-
-<button id="submit-button">Submit</button>
