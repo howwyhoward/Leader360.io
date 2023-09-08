@@ -1,4 +1,4 @@
-# Leadership360.io-AK
+# Leadership360.io
 # INSTALLATIONS
 * node
 * npm
