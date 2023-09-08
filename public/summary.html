@@ -7,26 +7,38 @@
 </head>
 <body>
 
-<textarea id="inputText" rows="4" cols="50"></textarea>
-<button onclick="summarizeText()">Summarize</button>
+<input type="text" id="emailInput" placeholder="Enter User Email">
+<button onclick="getSummary()">Get Report Summary</button>
 
-<p>Summary: <span id="summaryText"></span></p>
+<p>Overall Performance Summary: <span id="overallSummary"></span></p>
 
 <script>
-    async function summarizeText() {
-        const text = document.getElementById('inputText').value;
+    async function getSummary() {
+        // Get email value from input box
+        const someUserEmailValue = document.getElementById("emailInput").value;
+
+        // Check if email value is not empty
+        if(!someUserEmailValue) {
+            console.error("Please enter a valid email address.");
+            return;
+        }
+
         try {
-            const response = await fetch('/summarize', {
-                method: 'POST',
+            const response = await fetch(`/getSummary?UserEmail=${someUserEmailValue}`, {
+                method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ text: text })
+                }
             });
-            const data = await response.json();
-            document.getElementById('summaryText').innerText = data.summary;
+
+            if (response.ok) {
+                const data = await response.json();
+                document.getElementById('overallSummary').innerText = data.summary;
+            } else {
+                console.error("Failed to get summary:", response.statusText);
+            }
         } catch (error) {
-            console.error("There was an error summarizing the text.", error);
+            console.error("There was an error getting your report summary.", error);
         }
     }
 </script>

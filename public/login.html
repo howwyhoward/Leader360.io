@@ -1,86 +1,72 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Putting User input into JS Obejects</title>
+    <title>Login Page</title>
     <link rel="stylesheet" href="sign-in-style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-    <div class="login-container">
-        <div class="login-box">
-            <h1>Login</h1>
-            <form id="login-form">            
-                <div class = "formBox">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" placeholder="Email"/>
-                </div>
-                <div class="formBox">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" placeholder="Password"/>
-                <div class="formBox">
-                    <button id="btn">Log In</button>
-                </div>
-            </form>
+    <div class="login-box">
+        <h1>Login</h1>
+        <form id="user-form" class="login-container">
+            <div class = "FormBox">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required><br>
+            </div>
+            <div class = "FormBox">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required><br>
+            </div>
+            <input type="submit" value="Login" id="btn">
+        </form>
+        <p id="errorMessage" style="color: red;"></p>
+        <p id="result"></p>
+        <p>By clicking the Login button, you agree to our <br>
+            <a href="#">Terms and Conditions</a> and <a href="#">Policy Privacy</a></p>
+        <p class="p1">Don't have an account? <a href="newuser.html">Sign Up here</a></p>
         </div>
-        <p class="p2">Not have an account? <a href="newuser.html">Sign Up Here</a></p>
     </div>
-
     <script>
-        let leaders = JSON.parse(localStorage.getItem('LeaderRoster')); 
+        $(document).ready(function() {
+            console.log('in function');
+            console.info('test1');
+            $('#user-form').on('submit', function(e) {
+                e.preventDefault();
     
-        const emailInput = document.getElementById('email');
-        const passwordInput = document.getElementById('password');
-        const loginForm = document.getElementById('login-form');
+                let Email = $('#email').val();
+                let password = $('#password').val();
+                console.log(email, password);
     
-        emailInput.addEventListener('focus', removeErrorMessage);
-        passwordInput.addEventListener('focus', removeErrorMessage);
-    
-        function removeErrorMessage() {
-            const oldErrorMessage = document.querySelector('.error-message');
-            if (oldErrorMessage) {
-                oldErrorMessage.remove();
-            }
-        }
-    
-        loginForm.addEventListener('submit', async function (event) {
-            event.preventDefault();
-            
-            removeErrorMessage();
-            
-            let emailInputValue = emailInput.value;
-            let passwordInputValue = passwordInput.value;
-            
-            const payload = {
-                Email: emailInputValue,
-                Password: passwordInputValue,
-            };
-    
-            try {
-                const response = await fetch("/login", {
-                    method: "POST",
-                    headers: {
-                        'Content-Type': 'application/json',
+                $.ajax({
+                    url: `http://localhost:3000/getUser`,
+                    type: 'GET',
+                    data: {
+                        email: Email,
+                        password: password
                     },
-                    body: JSON.stringify(payload),
+                    success: function(data) {
+                        console.log('success');
+                        console.info('test');
+                        // $('#result').html(`Full name: ${data.UserFname} ${data.UserLname}`);
+                        // Set first name and last name in localStorage
+                        localStorage.setItem('firstName', data.UserFname);
+                        localStorage.setItem('lastName', data.UserLname);
+                        localStorage.setItem('userEmail', data.UserEmail);
+
+                        // Redirect to the other HTML file
+                        window.location.href = 'index.html';
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        document.getElementById("errorMessage").textContent = "Incorrect username or password. Please retry.";
+                        console.log("jqXHR: ", jqXHR);
+                        console.log("textStatus: ", textStatus);
+                        console.log("errorThrown: ", errorThrown);
+                    }
                 });
-    
-                const data = await response.json();
-    
-                if (data.success) {
-                    localStorage.setItem('UserEmail', data.Email || emailInputValue);
-                    window.location.href = 'index.html';
-                } else {
-                    let errorMessage = document.createElement('p');
-                    errorMessage.textContent = data.message || 'Invalid, please try again.';
-                    errorMessage.style.color = 'red';
-                    errorMessage.classList.add('error-message');
-                    loginForm.appendChild(errorMessage);
-                }
-            } catch (error) {
-                console.error('There was a problem with the fetch call:', error);
-            }
+            });
         });
-    </script>      
+    </script>
 </body>
 </html>

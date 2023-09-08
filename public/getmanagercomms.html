@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Comments</title>
+</head>
+<body>
+  <h1>Your Managers' Comments</h1>
+  <div>
+    <button onclick="fetchComments()">Get Comments</button>
+  </div>
+  <p class="p1">Have no comments?? <a href="postmanagercomms.html">Insert comments here</a></p>
+  <div id="commentData"></div>
+  <!-- <p id="errorMessage2" style="color: red;"></p> -->
+  <p id="errorMessage" style="color: red;"></p>
+
+  <script>
+    function fetchComments() {
+      var userEmail3 = localStorage.getItem('userEmail');
+      console.log(userEmail3);
+      const url = `http://localhost:3000/getCommentManager?UserEmail=${encodeURIComponent(userEmail3)}`;
+
+      fetch(url)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        })
+        .then(data => {
+          const commentDataDiv = document.getElementById('commentData');
+          if (data.success) {
+            const commentDataArray = data.commentData;
+            
+            if (commentDataArray.length > 0) {
+              // Display each comment row in the commentDataDiv
+              commentDataArray.forEach(commentData => {
+                commentDataDiv.innerHTML += `
+                  <p><strong>Author:</strong> ${commentData.Author}</p>
+                  <p><strong>Integrity:</strong> ${commentData.Integrity}</p>
+                  <p><strong>PersonalORG:</strong> ${commentData.PersonalORG}</p>
+                  <p><strong>Improvement:</strong> ${commentData.Improvement}</p>
+                  <p><strong>Performance:</strong> ${commentData.Performance}</p>
+                  <p><strong>Communication:</strong> ${commentData.Communication}</p>
+                  <p><strong>Future:</strong> ${commentData.Future}</p>
+                  <p><strong>Change:</strong> ${commentData.Change}</p>
+                  <p><strong>Teamwork:</strong> ${commentData.Teamwork}</p>
+                  <p><strong>Collaboration:</strong> ${commentData.Collaboration}</p>
+                  <p><strong>Achievement:</strong> ${commentData.Achievement}</p>
+                  <p><strong>Closing:</strong> ${commentData.Closing}</p>
+                `;
+              });
+            } else {
+              commentDataDiv.innerHTML = '<p>No comments found for the user.</p>';
+            }
+          } else {
+            commentDataDiv.innerHTML = '<p>No comments found for the user.</p>';
+          }
+        })
+        .catch(error => {
+          if (userEmail3 == null) {
+            document.getElementById("errorMessage").textContent = "Must Sign in before checking comments";
+          }
+          console.error('Error fetching comment data:', error.message);
+          const commentDataDiv = document.getElementById('commentData');
+          commentDataDiv.innerHTML = '<p>Error fetching comment data.</p>';
+        });
+    }
+</script>
+  <a href="index.html">Home Screen</a>
+</body>
+</html>

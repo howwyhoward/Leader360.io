@@ -58,14 +58,3 @@ function redirectToLogin() {
     window.location.href = 'newuser.html';
 }
 
-// retrive user data
-let userEmail = localStorage.getItem('UserEmail');
-
-if (userEmail) {
-    fetch('http://localhost:3000/getUser?email=' + userEmail)
-    .then(response => response.json())
-    .then(data => {
-        document.getElementById('leader-name').textContent = data.UserFname;
-    })
-    .catch(error => console.error('Error:', error));
-}
