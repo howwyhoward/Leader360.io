@@ -69,12 +69,24 @@
     transition: all 0.3s ease;
 }
 
+
 .navbar__btn {
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 0 1rem;
     width: 100%;
+}
+
+.main__btn {
+    color: #fff;  
+    transition: all 0.3s ease;
+}
+
+.main__btn:hover {
+    background-color: #005190;  
+    color: #fff;  
+    transition: all 0.3s ease;
 }
 
 #signup {

@@ -233,7 +233,7 @@ app.post('/addCommentSub', (req, res) => {
 
     // Insert the form data into the MySQL database
     const query = 'CALL InsertCommentFromSubordinateByEmailNEW2(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
-    db.query(query, [dataForm1.UserEmail, dataForm1.IntegrityComment, dataForm1.PersonalOrgComment, dataForm1.ImprovementComment, dataForm1.PerformanceComment, dataForm1.CommunicationComment, dataForm1.FutureComment, dataForm1.ChangeComment, dataForm1.TeamworkComment, dataForm1.CollaborationComment, dataForm1.AchievementComment, dataForm1.ClosingComment, dataForm1.Author], (err, result) => {
+    db.query(query, [dataForm1.UserEmail, dataForm1.IntegrityComment, dataForm1.PersonalOrgComment, dataForm1.ImprovementComment, dataForm1.PerformanceComment, dataForm1.CommunicationComment, dataForm1.FutureComment, dataForm1.ChangeComment, dataForm1.TeamworkComment, dataForm1.CollaborationComment, dataForm1.AchievementComment, dataForm1.ClosingComment], (err, result) => {
       if (err) {
         console.error('Error executing the database query:', err);
         return res.status(500).json({ success: false });
@@ -250,7 +250,7 @@ app.get('/getCommentSub', (req, res) => {
     const userEmail = req.query.UserEmail
     //req.session.save();
     console.log("User Email on server: " + userEmail);
-    const query = 'SELECT Integrity, PersonalORG, Improvement, Performance, Communication, Future, `Change`, Teamwork, Collaboration, Achievement, Closing, Author FROM tbluser U JOIN tblsubordinatecomments SC on U.UserID = SC.UserID WHERE UserEmail = ?';
+    const query = 'SELECT Integrity, PersonalORG, Improvement, Performance, Communication, Future, `Change`, Teamwork, Collaboration, Achievement, Closing FROM tbluser U JOIN tblsubordinatecomments SC on U.UserID = SC.UserID WHERE UserEmail = ?';
 
     console.log(query);
 
@@ -277,26 +277,18 @@ app.get('/getCommentSub', (req, res) => {
 app.get('/getSummary', async (req, res) => {
     try {
         const userEmail = req.query.UserEmail;
-        
-        // Log the entry into the route
         console.log("Inside /getSummary route");
-        
-        // Log the userEmail received from the query parameters
         console.log("User email from query params: ", userEmail);
-        
+
         let allComments = "";
 
-        // Fetch UserID based on UserEmail
         const userIdQuery = 'SELECT UserID FROM tbluser WHERE UserEmail = ?';
         const userIdResult = await dbQuery(userIdQuery, [userEmail]);
         
         if(userIdResult.length > 0) {
             const userId = userIdResult[0].UserID;
-
-            // Log the userId received from the database query
             console.log("User ID from DB query: ", userId);
-            
-            // Fetch comments for different tables
+
             const queries = [
                 'SELECT * FROM tblcomments WHERE UserID = ?',
                 'SELECT * FROM tblmanagercomments WHERE UserID = ?',
@@ -306,20 +298,32 @@ app.get('/getSummary', async (req, res) => {
 
             const commentArrays = await Promise.all(queries.map(query => dbQuery(query, [userId])));
             
-            allComments = combineComments(...commentArrays);
+            // Check if there are no comments for the user
+            if(commentArrays.every(arr => arr.length === 0)) {
+                console.log("No comments found for user.");
+                return res.status(404).json({ message: "No comments found for user." });
+            }
 
-            // Log all the comments that have been combined
+            allComments = combineComments(...commentArrays);
             console.log("All comments: ", allComments);
-            
-            // Generate summary using OpenAI API
+
             const gpt3Response = await openai.completions.create({
                 model: "text-davinci-002",
-                prompt: `Summarize the following comments: ${allComments}`,
-                max_tokens: 50
+                prompt: `Provide a one paragraph summary highlighting the strengths and weaknesses of the user based on the comments received from their Peers, Self, Manager, and Team members: ${allComments}`,
+                max_tokens: 200 
             });
 
+            // Debugging logs
+            console.log("GPT-3 response:", gpt3Response);
+
             const summary = gpt3Response.choices[0].text.trim();
-            
+
+            // Check if summary is empty
+            if(!summary) {
+                console.log("Generated summary is empty.");
+                return res.status(404).json({ message: "Generated summary is empty." });
+            }
+
             return res.json({ summary });
 
         } else {
