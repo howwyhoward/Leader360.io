@@ -7,16 +7,19 @@
 <body>
   <h1>User Comments</h1>
   <div>
-    <input type="email" id="userEmailInput" placeholder="Enter your email">
     <button onclick="fetchComments()">Get Comments</button>
   </div>
   <p class="p1">Have no comments?? <a href="comments.html">Insert comments here</a></p>
   <div id="commentData"></div>
+  <!-- <p id="errorMessage2" style="color: red;"></p> -->
+  <p id="errorMessage" style="color: red;"></p>
 
   <script>
     function fetchComments() {
-      const userEmail = document.getElementById('userEmailInput').value;
-      const url = `https://leadershipinternship.azurewebsites.net/getComment?UserEmail=${encodeURIComponent(userEmail)}`;
+      var userEmail3 = localStorage.getItem('userEmail');
+      console.log(typeof(userEmail3))
+      console.log(userEmail3);
+      const url = `http://localhost:3000/getComment?UserEmail=${encodeURIComponent(userEmail3)}`;
 
       fetch(url)
         .then(response => {
@@ -48,6 +51,9 @@
           }
         })
         .catch(error => {
+          if (userEmail3 == null) {
+            document.getElementById("errorMessage").textContent = "Must Sign in before checking comments";
+          }
           console.error('Error fetching comment data:', error.message);
           const commentDataDiv = document.getElementById('commentData');
           commentDataDiv.innerHTML = '<p>Error fetching comment data.</p>';
