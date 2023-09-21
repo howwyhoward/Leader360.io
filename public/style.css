@@ -69,7 +69,6 @@
     transition: all 0.3s ease;
 }
 
-
 .navbar__btn {
     display: flex;
     justify-content: center;
@@ -78,30 +77,14 @@
     width: 100%;
 }
 
-.main__btn {
-    color: #fff;  
-    transition: all 0.3s ease;
-}
-
-.main__btn:hover {
-    background-color: #005190;  
-    color: #fff;  
-    transition: all 0.3s ease;
-}
-
-#signup {
-    white-space: nowrap;
-}
-
 .button {
-    font-size: 15px;
     display: flex;
     justify-content: center;
     align-items: center;
     text-decoration: none;
     padding: 10px;
-    height: 40px;
-    width: 80px;
+    height: 100%;
+    width: 100%;
     border: none;
     outline: none;
     border-radius: 4px;

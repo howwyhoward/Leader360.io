@@ -14,18 +14,13 @@ body {
 .login-box {
     position: relative;
     width: 360px;
-    height: 560px;
+    height: 420px;
     margin: auto;
     background-color: #fff;
     border-radius: 3px;
 }
 
-.FormBox label {
-    margin-bottom: 8px;
-    display: block;  /* Makes sure the label takes the full width and acts like a block element */
-}
-
-.login-container {
+login-contianer {
     position: relative;
 }
 
@@ -57,8 +52,7 @@ form input{
 #btn {
     width: 320px;
     height: 35px;
-    margin-top: 40px;
-    margin-bottom: 12px;
+    margin-top: 20px;
     border: none;
     background: #D38312;  /* fallback for old browsers */
     background: -webkit-linear-gradient(to left, #A83279, #D38312);  /* Chrome 10-25, Safari 5.1-6 */

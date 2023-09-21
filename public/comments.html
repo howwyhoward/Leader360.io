@@ -58,6 +58,8 @@
     <div class="comment-form">
         <h1>User Comments</h1>
         <form action="/submit" method="post">
+            <label for="email">Email</label>
+            <input type="email" id="email" placeholder="Email" name="email" />
 
             <label for="integrity">Integrity:</label>
             <textarea id="integrity" rows="4" placeholder="Enter your comments for Integrity"></textarea>
@@ -100,7 +102,7 @@
         const submitComments = () => {
         
             let dataForm1 = {
-                UserEmail: localStorage.getItem('userEmail'),
+                UserEmail: document.getElementById('email').value,
                 IntegrityComment: document.getElementById('integrity').value,
                 PersonalOrgComment: document.getElementById('personalOrg').value,
                 ImprovementComment: document.getElementById('improvement').value,
@@ -116,7 +118,7 @@
 
         
             // Send the form data to the server using fetch API
-            fetch('http://localhost:3000/addComment', {
+            fetch('https://leadershipinternship.azurewebsites.net/addComment', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

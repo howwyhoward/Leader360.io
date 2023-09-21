@@ -58,3 +58,12 @@ function redirectToLogin() {
     window.location.href = 'newuser.html';
 }
 
+// retrive leader array
+let leaders = JSON.parse(localStorage.getItem('LeaderRoster'));
+
+if (leaders && leaders.length > 0) {
+    let fullname = leaders[0].Name;
+    let firstname = fullname.split(' ')[0];
+    document.getElementById('leader-name').textContent = firstname;
+}
+
