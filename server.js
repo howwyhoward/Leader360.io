@@ -20,6 +20,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
+console.log("accessing API Key")
+
 // MySQL database connection settings
 const db = mysql.createConnection({
     host: 'leadershipmysqldb2.mysql.database.azure.com',
