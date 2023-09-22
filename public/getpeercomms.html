@@ -17,7 +17,7 @@
     function fetchComments() {
       var userEmail3 = localStorage.getItem('userEmail');
       console.log(userEmail3);
-      const url = `https://leadershipinternship.azurewebsites.net/getCommentPeer?UserEmail=${encodeURIComponent(userEmail3)}`;
+      const url = `http://localhost:3000/getCommentPeer?UserEmail=${encodeURIComponent(userEmail3)}`;
 
       fetch(url)
         .then(response => {
