@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="four-features.css">
 </head>
 <body>
     <!DOCTYPE html>
@@ -97,6 +98,59 @@
     </div>
 
     <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            console.log('In event listener')
+            const userEmail = localStorage.getItem('userEmail');
+
+            // Check if userEmail is available
+            if (userEmail) {
+                // Fetch comments for the user based on their email
+                fetch(`https://leadershipinternship.azurewebsites.net/getComment?UserEmail=${encodeURIComponent(userEmail)}`)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data9 => {
+
+                        // Assuming data is the response from the server
+                        const commentData = data9.commentData
+
+                        // Assuming the data is an object with comment properties
+                        document.getElementById('integrity').value = commentData.Integrity;
+                        document.getElementById('integrity').readOnly = false; // Set textarea to editable
+                        document.getElementById('personalOrg').value = commentData.PersonalORG;
+                        document.getElementById('personalOrg').readOnly = false;
+                        document.getElementById('improvement').value = commentData.Improvement;
+                        document.getElementById('improvement').readOnly = false;
+                        document.getElementById('performance').value = commentData.Performance;
+                        document.getElementById('performance').readOnly = false;
+                        document.getElementById('communication').value = commentData.Communication;
+                        document.getElementById('communication').readOnly = false;
+                        document.getElementById('future').value = commentData.Future;
+                        document.getElementById('future').readOnly = false;
+                        document.getElementById('change').value = commentData.Change;
+                        document.getElementById('change').readOnly = false;
+                        document.getElementById('teamwork').value = commentData.Teamwork;
+                        document.getElementById('teamwork').readOnly = false;
+                        document.getElementById('collaboration').value = commentData.Collaboration;
+                        document.getElementById('collaboration').readOnly = false;
+                        document.getElementById('achievement').value = commentData.Achievement;
+                        document.getElementById('achievement').readOnly = false;
+                        document.getElementById('closing').value = commentData.Closing;
+                        document.getElementById('closing').readOnly = false;
+
+                        // Populate and make other textareas editable similarly
+                    })
+                    .catch(error => {
+                        console.error('Error fetching comments:', error);
+                    });
+            } else {
+                console.error('UserEmail not found in localStorage');
+            }
+        });
+        
         const submitComments = () => {
         
             let dataForm1 = {

@@ -1,65 +1,88 @@
-<!-- Your HTML page with a form to enter the user's email and a button -->
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Comments</title>
+    <meta charset="UTF-8">
+    <title>Self Evaluations</title>
+    <link rel="stylesheet" href="four-features.css">
 </head>
 <body>
-  <h1>User Comments</h1>
-  <div>
-    <button onclick="fetchComments()">Get Comments</button>
-  </div>
-  <p class="p1">Have no comments?? <a href="comments.html">Insert comments here</a></p>
-  <div id="commentData"></div>
-  <!-- <p id="errorMessage2" style="color: red;"></p> -->
-  <p id="errorMessage" style="color: red;"></p>
+<div class="commenting" id="commenting">
+    <h1>Self Evaluations</h1>
+    <div>
+        <button class="cmt__btn" onclick="fetchComments()">See Result</button>
+    </div>
+    <p style="color: #fff; background-color: #333; padding: 10px; text-align:center; width: calc (100% - 20px);">
+      Have no comments??
+      <a href="comments.html" style="text-decoration: underline; color: #4CAF50;">Insert comments here</a>
+  </p>    
+    <div id="commentData"></div>
+    <p id="errorMessage" style="color: red;"></p>
+    <a href="index.html" class="home-link">Home Screen</a>
+</div>
+<script>
+    let isCanvasVisible = false;
 
-  <script>
     function fetchComments() {
-      var userEmail3 = localStorage.getItem('userEmail');
-      console.log(typeof(userEmail3))
-      console.log(userEmail3);
-      const url = `http://localhost:3000/getComment?UserEmail=${encodeURIComponent(userEmail3)}`;
+        const commentDataDiv = document.getElementById('commentData');
+        const commentingDiv = document.getElementById('commenting');
+        
+        if (isCanvasVisible) {
+            const canvas = document.querySelector('.canvas');
+            if (canvas) {
+                canvas.remove();
+            }
+            
+            commentDataDiv.innerHTML = "";
+            commentingDiv.appendChild(commentDataDiv);
+            isCanvasVisible = false;
+            return;
+        }
+        
+        var userEmail3 = localStorage.getItem('userEmail');
+        const url = `http://localhost:3000/getComment?UserEmail=${encodeURIComponent(userEmail3)}`;
+        
+        fetch(url)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                const canvas = document.createElement('div');
+                canvas.className = 'canvas';
+                commentingDiv.appendChild(canvas);
+                canvas.appendChild(commentDataDiv);
+                isCanvasVisible = true;
 
-      fetch(url)
-        .then(response => {
-          if (!response.ok) {
-            throw new Error('Network response was not ok');
-          }
-          return response.json();
-        })
-        .then(data => {
-          const commentDataDiv = document.getElementById('commentData');
-          if (data.success) {
-            const commentData = data.commentData;
-            // Display the comments in the commentDataDiv
-            commentDataDiv.innerHTML = `
-              <p><strong>Integrity:</strong> ${commentData.Integrity}</p>
-              <p><strong>PersonalORG:</strong> ${commentData.PersonalORG}</p>
-              <p><strong>Improvement:</strong> ${commentData.Improvement}</p>
-              <p><strong>Performance:</strong> ${commentData.Performance}</p>
-              <p><strong>Communication:</strong> ${commentData.Communication}</p>
-              <p><strong>Future:</strong> ${commentData.Future}</p>
-              <p><strong>Change:</strong> ${commentData.Change}</p>
-              <p><strong>Teamwork:</strong> ${commentData.Teamwork}</p>
-              <p><strong>Collaboration:</strong> ${commentData.Collaboration}</p>
-              <p><strong>Achievement:</strong> ${commentData.Achievement}</p>
-              <p><strong>Closing:</strong> ${commentData.Closing}</p>
-            `;
-          } else {
-            commentDataDiv.innerHTML = '<p>No comments found for the user.</p>';
-          }
-        })
-        .catch(error => {
-          if (userEmail3 == null) {
-            document.getElementById("errorMessage").textContent = "Must Sign in before checking comments";
-          }
-          console.error('Error fetching comment data:', error.message);
-          const commentDataDiv = document.getElementById('commentData');
-          commentDataDiv.innerHTML = '<p>Error fetching comment data.</p>';
-        });
+                if (data.success) {
+                    const commentData = data.commentData;
+                    commentDataDiv.innerHTML = `
+                        <p class="notes"><strong>Self Notes</strong></p>
+                        <p><strong>Integrity:</strong> ${commentData.Integrity}</p>
+                        <p><strong>PersonalORG:</strong> ${commentData.PersonalORG}</p>
+                        <p><strong>Improvement:</strong> ${commentData.Improvement}</p>
+                        <p><strong>Performance:</strong> ${commentData.Performance}</p>
+                        <p><strong>Communication:</strong> ${commentData.Communication}</p>
+                        <p><strong>Future:</strong> ${commentData.Future}</p>
+                        <p><strong>Change:</strong> ${commentData.Change}</p>
+                        <p><strong>Teamwork:</strong> ${commentData.Teamwork}</p>
+                        <p><strong>Collaboration:</strong> ${commentData.Collaboration}</p>
+                        <p><strong>Achievement:</strong> ${commentData.Achievement}</p>
+                        <p><strong>Closing:</strong> ${commentData.Closing}</p>
+                    `;
+                } else {
+                    commentDataDiv.innerHTML = '<p>No comments found for the user.</p>';
+                }
+            })
+            .catch(error => {
+                if (userEmail3 == null) {
+                    document.getElementById("errorMessage").textContent = "Must Sign in before checking comments";
+                }
+                console.error('Error fetching comment data:', error.message);
+                commentDataDiv.innerHTML = '<p>Error fetching comment data.</p>';
+            });
     }
-  </script>
-  <a href="index.html">Home Screen</a>
+</script>
 </body>
 </html>

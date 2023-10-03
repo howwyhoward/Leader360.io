@@ -20,6 +20,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
+console.log("accessing API Key")
+
 // MySQL database connection settings
 const db = mysql.createConnection({
     host: 'leadershipmysqldb2.mysql.database.azure.com',
@@ -308,9 +310,9 @@ app.get('/getSummary', async (req, res) => {
             console.log("All comments: ", allComments);
 
             const gpt3Response = await openai.completions.create({
-                model: "text-davinci-002",
-                prompt: `Provide a one paragraph summary highlighting the strengths and weaknesses of the user based on the comments received from their Peers, Self, Manager, and Team members: ${allComments}`,
-                max_tokens: 200 
+                model: "gpt-3.5-turbo-instruct",
+                prompt: `Here are a list of comments given to you as follows, ending with the delimeter # for each comment: ${allComments}. Your job is to give an overall summary of what all these comments are trying to say.`,
+                max_tokens: 1000 
             });
 
             // Debugging logs
@@ -369,10 +371,75 @@ function combineComments(...commentArrays) {
                     combined += comment[column] + " ";
                 }
             });
+            combined = combined.trim();  // Remove any trailing spaces
+            combined += "# ";            // Append the delimiter
         });
     });
-    return combined;
+    return combined.trim(); // Optionally remove the trailing space and delimiter for the last comment
 }
+
+const stopwords = ["and", "the", "to", "of", "it", "in", "is", "you", "that", "a", "we", "i", "for", "on"];
+
+function tokenizeAndRemoveStopwords(text) {
+    // Tokenize by spaces and remove non-alphabetic characters
+    const words = text.toLowerCase().split(/\W+/).filter(word => word.length > 1 && !stopwords.includes(word));
+    return words;
+}
+
+
+app.get('/commentWordFlowchart', async (req, res) => {
+    try {
+        const userEmail = req.query.UserEmail;
+        let allComments = "";
+
+        // Similar to the previous /getSummary endpoint, get all comments for the user:
+        const userIdQuery = 'SELECT UserID FROM tbluser WHERE UserEmail = ?';
+        const userIdResult = await dbQuery(userIdQuery, [userEmail]);
+        
+        if (userIdResult.length > 0) {
+            const userId = userIdResult[0].UserID;
+            const queries = [
+                'SELECT * FROM tblcomments WHERE UserID = ?',
+                'SELECT * FROM tblmanagercomments WHERE UserID = ?',
+                'SELECT * FROM tblpeercomments WHERE UserID = ?',
+                'SELECT * FROM tblsubordinatecomments WHERE UserID = ?'
+            ];
+
+            const commentArrays = await Promise.all(queries.map(query => dbQuery(query, [userId])));
+            
+            commentArrays.forEach(commentArray => {
+                commentArray.forEach(comment => {
+                    for (let key in comment) {
+                        if (typeof comment[key] === 'string') {
+                            allComments += " " + comment[key];
+                        }
+                    }
+                });
+            });
+
+            // Tokenize and count words
+            const words = tokenizeAndRemoveStopwords(allComments);
+            const wordCounts = {};
+
+            words.forEach(word => {
+                wordCounts[word] = (wordCounts[word] || 0) + 1;
+            });
+
+            // This will just send the word counts for now. Visualization would have to be handled on the client-side.
+            res.status(200).json(wordCounts);
+
+        } else {
+            res.status(404).json({ message: 'No comments found for the user.' });
+        }
+    } catch (error) {
+        console.error('An error occurred:', error);
+        res.status(500).send('Server error.');
+    }
+});
+
+
+
+
 
 
 const port = process.env.PORT || 3000;

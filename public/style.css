@@ -279,7 +279,6 @@
 
 .main__container {
     display: grid;
-    grid-template-columns:1fr 1fr;
     align-items: center;
     justify-content: center;
     margin: 0 auto;
@@ -311,7 +310,7 @@
 }
 
 .main__content h2 {
-    font-size: 1.7rem;
+    font-size: 1.3rem;
 }
 
 .main__content p {
@@ -321,7 +320,7 @@
 }
 
 .main__btn {
-    font-size: 1.5rem;
+    font-size: 1.5rem; 
     background: #D38312;  /* fallback for old browsers */
     background: -webkit-linear-gradient(to left, #A83279, #D38312);  /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to left, #A83279, #D38312); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */    
@@ -393,7 +392,7 @@
     }
 
     .main__content h2 {
-        font-size: 21px;
+        font-size: 15px;
     }
 
     .main__content p {

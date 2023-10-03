@@ -1,0 +1,187 @@
+
+html, body {
+    margin: 0;
+    padding: 0;
+    background-color: #131313;
+} 
+
+.commenting {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    padding: 6rem;
+}
+
+.commenting h1 {
+    background: #D38312;
+    background: -webkit-linear-gradient(to right, #A83279, #D38312);
+    background: linear-gradient(to left, #A83279, #D38312);  
+    background-size: 100%;
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -moz-text-fill-color: transparent;
+    margin-bottom: 4rem;
+    font-size: 3rem;
+}
+.summary h1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #D38312;
+    background: -webkit-linear-gradient(to right, #A83279, #D38312);
+    background: linear-gradient(to left, #A83279, #D38312);  
+    background-size: 100%;
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -moz-text-fill-color: transparent;
+    margin-bottom: 4rem;
+    margin-top: 4rem;
+    font-size: 3rem;
+}
+.report__btn {
+    font-size: 15px;  /* to make it larger */
+    width: 178px; /* to make it wider */
+    height: 39px; /* to make it taller */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none; 
+    border: none;
+    outline: none;
+    border-radius: 4px;
+    background: #D38312;
+    background: -webkit-linear-gradient(to left, #A83279, #D38312);
+    background: linear-gradient(to left, #A83279, #D38312);
+    color: #fff;
+    transition: all 0.3s ease;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+}
+.report__btn:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 100%;
+    background: #3CB371;
+    z-index: -1;
+    transition: right 0.3s ease;
+}
+
+.report__btn:hover:before {
+    right: 0;
+    }
+
+.report__btn:hover {
+    background: none;
+    background-color: #005190;
+    color: #fff;
+}
+.cmt__btn {
+    font-size: 18px;  /* to make it larger */
+    width: 120px; /* to make it wider */
+    height: 43px; /* to make it taller */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    border: none;
+    outline: none;
+    border-radius: 4px;
+    background: #D38312;
+    background: -webkit-linear-gradient(to left, #A83279, #D38312);
+    background: linear-gradient(to left, #A83279, #D38312);
+    color: #fff;
+    transition: all 0.3s ease;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+}
+
+.cmt__btn:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 100%;
+    background: #3CB371;
+    z-index: -1;
+    transition: right 0.3s ease;
+}
+
+.cmt__btn:hover:before {
+    right: 0;
+    }
+
+.cmt__btn:hover {
+    background: none;
+    background-color: #005190;
+    color: #fff;
+}
+
+.canvas {
+    background-color: white;
+    z-index: 1000;
+    padding: 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    max-width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    margin: 10px auto;
+}
+
+.summaryCanvas {
+    background-color: white;
+    z-index: 1000;
+    padding: 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    max-width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    margin: 10px auto;
+}
+
+.notes {
+   font-size: 34px;
+   color: #005190;
+}
+
+.comment-form h1 {
+    color: #ccc; 
+}
+
+.comment-form label {
+    color: #ccc;
+}
+
+#emailInput {
+    width: 150px;
+    height: 7px;
+    font-size: 12px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.center1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    padding: 1rem;
+}
+

@@ -4,43 +4,74 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OpenAI Summarizer</title>
+    <link rel="stylesheet" href="four-features.css">
 </head>
 <body>
-
-<input type="text" id="emailInput" placeholder="Enter User Email">
-<button onclick="getSummary()">Get Report Summary</button>
-
-<p>Overall Performance Summary: <span id="overallSummary"></span></p>
+<div class="summary" id="summary">
+    <h1 class="title">Summary</h1>
+    <span id="overallSummary"></span>
+</div>
+<div class="center">
+    <input type="text" id="emailInput" placeholder="Enter User Email">
+</div>
+<div class="center1">
+    <button class="report__btn" onclick="getSummary()">Get Summary Report</button>
+</div>
 
 <script>
-    async function getSummary() {
-        // Get email value from input box
-        const someUserEmailValue = document.getElementById("emailInput").value;
+    let isSummaryCanvasVisible = false;
 
-        // Check if email value is not empty
+    async function getSummary() {
+        const someUserEmailValue = document.getElementById("emailInput").value;
+        
+        // Validation and Feedback to User
         if(!someUserEmailValue) {
-            console.error("Please enter a valid email address.");
+            alert("Please enter a valid email address.");
             return;
         }
-
+    
+        const summaryDiv = document.getElementById('summary');
+        const overallSummarySpan = document.getElementById('overallSummary');
+        
+        // Handle visibility and removal
+        const existingCanvas = document.querySelector('.summaryCanvas');
+        if (isSummaryCanvasVisible && existingCanvas) {
+            existingCanvas.remove();
+            overallSummarySpan.innerText = '';
+            isSummaryCanvasVisible = false;
+            return;
+        }
+    
         try {
             const response = await fetch(`/getSummary?UserEmail=${someUserEmailValue}`, {
                 method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
+                headers: {'Content-Type': 'application/json'}
             });
-
+    
             if (response.ok) {
                 const data = await response.json();
-                document.getElementById('overallSummary').innerText = data.summary;
+                console.log("Received data:", data);  // Debug: Log received data
+                
+                const canvas = document.createElement('div');
+                canvas.className = 'summaryCanvas';
+                summaryDiv.appendChild(canvas);
+    
+                // Inserting text without overwriting
+                canvas.insertAdjacentHTML('beforeend', `
+                    <p class="notes"><strong>Overall Performance Summary</strong></p>
+                    <p>${data.summary}</p>
+                `);
+                isSummaryCanvasVisible = true;
             } else {
                 console.error("Failed to get summary:", response.statusText);
+                overallSummarySpan.innerText = 'Failed to get summary.';
             }
         } catch (error) {
-            console.error("There was an error getting your report summary.", error);
+            console.error("Error getting report summary:", error);
+            overallSummarySpan.innerText = 'There was an error getting your report summary.';
         }
     }
 </script>
+
 </body>
 </html>
